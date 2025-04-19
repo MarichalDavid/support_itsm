@@ -1,0 +1,48 @@
+{
+  "realm": "support-platform",
+  "enabled": true,
+  "sslRequired": "external",
+  "clients": [
+    {
+      "clientId": "support-platform-client",
+      "enabled": true,
+      "publicClient": true,
+      "redirectUris": [
+        "http://frontend.localhost/*"
+      ],
+      "webOrigins": [
+        "http://frontend.localhost"
+      ],
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false
+    },
+    {
+      "clientId": "glpi-client",
+      "enabled": true,
+      "publicClient": true,
+      "redirectUris": [
+        "http://glpi.localhost/*"
+      ],
+      "webOrigins": [
+        "http://glpi.localhost"
+      ],
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "Regular user role"
+      }
+    ]
+  },
+  "defaultRoles": ["user"]
+}
