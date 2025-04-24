@@ -116,6 +116,7 @@ services:
       - MARIADB_DATABASE=glpi
       - MARIADB_USER=glpi
       - MARIADB_PASSWORD=glpi_password
+      - MARIADB_ROOT_PASSWORD=glpi_root_password
     volumes:
       - glpi-data:/var/www/html/glpi
       - glpi-config:/var/www/html/glpi/config

@@ -1,16 +1,12 @@
 FROM diouxx/glpi
 
-# Installation de mysqladmin pour vérifier la disponibilité de la base de données
-RUN apt-get update && apt-get install -y mariadb-client && apt-get clean
+# Installer le client MySQL + modules PHP
+RUN apt-get update && apt-get install -y mariadb-client php-intl php-curl php-gd php-mbstring php-xml php-zip php-bcmath php-mysql && \
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Ajouter ServerName global pour supprimer l'avertissement
-RUN echo "ServerName glpi.localhost" >> /etc/apache2/apache2.conf
+# Copier config + script
+COPY config/config_db.php /var/www/html/glpi/config/config_db.php
+COPY init-glpi.sh /init-glpi.sh
+RUN chmod +x /init-glpi.sh
 
-# Copier la configuration Apache personnalisée
-COPY apache-conf/000-default.conf /etc/apache2/sites-available/000-default.conf
-
-# Créez un script de démarrage personnalisé
-COPY install-glpi.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/install-glpi.sh
-
-ENTRYPOINT ["/usr/local/bin/install-glpi.sh"]
+CMD ["/init-glpi.sh"]
