@@ -133,6 +133,26 @@ services:
       - "traefik.http.routers.glpi.entrypoints=web"
       - "traefik.http.services.glpi.loadbalancer.server.port=80"
     restart: unless-stopped
+  
+  core-service:
+    build:
+      context: ./services/core-service
+    container_name: support-platform-core
+    environment:
+      - KEYCLOAK_URL
+      - KEYCLOAK_REALM
+      - KEYCLOAK_CLIENT_ID
+      - KEYCLOAK_CLIENT_SECRET
+      - GLPI_URL
+      - GLPI_USER_TOKEN
+      - GLPI_APP_TOKEN
+    depends_on:
+     - keycloak
+     - glpi
+    networks:
+      - support-network
+    restart: unless-stopped
+
 
 
 # Volumes pour la persistance des données
